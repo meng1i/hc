@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haircut Booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="haircutlogo2.html">
+    <form action="/book_haircut" method="post">
+        <label for="stylist">Stylist:</label>
+        <input type="text" id="stylist" name="stylist" required>
+
+        <label for="appointmentDate">Appointment Date:</label>
+        <input type="date" id="appointmentDate" name="appointmentDate" required>
+
+        <label for="customerName">Customer Name:</label>
+        <input type="text" id="customerName" name="customerName" required>
+
+        <label for="haircutStyle">Haircut Style:</label>
+        <select id="haircutStyle" name="haircutStyle" required>
+            <option value="men">Men's Cut</option>
+            <option value="women">Women's Cut</option>
+            <option value="kids">Kids' Cut</option>
+            <!-- Add more options as needed -->
+        </select>
+
+        <button type="submit" onclick="sendEail()">Book Haircut</button>
+    </form>
+    <script>
+        function sendEmail() {
+            const stylist = document.getElementById("stylist").value;
+            const appointmentDate = document.getElementById("appointmentDate").value;
+            const customerName = document.getElementById("customerName").value;
+            const haircutStyle = document.getElementById("haircutStyle").value;
+    
+            // Use your Email.js service credentials and template id
+            emailjs.init("user_your_emailjs_user_id");
+    
+            const templateParams = {
+                stylist: stylist,
+                appointmentDate: appointmentDate,
+                customerName: customerName,
+                haircutStyle: haircutStyle
+            };
+    
+            // Replace "your_template_id" with the actual template ID from your Email.js account
+            emailjs.send("default_service", "taimenglong169@gmail.com", templateParams)
+                .then(function(response) {
+                    console.log("Email sent successfully:", response);
+                    alert("Booking successful! The seller has been notified.");
+                }, function(error) {
+                    console.error("Email failed to send:", error);
+                    alert("Booking successful! However, there was an issue notifying the seller. Please contact them directly.");
+                });
+        }
+    </script>
+
+</body>
+</html>
